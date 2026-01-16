@@ -1,76 +1,54 @@
-# NERO AI Assistant v6.0
+# Nero AI
 
-Nero is a professional Desktop AI Assistant featuring a circular audio spectrum visualizer, powered by Google Gemini AI and Microsoft Edge Neural TTS. It is designed with a modern, frameless UI and "Jarvis-like" aesthetics.
+Hi there! This is Nero, a personal desktop assistant I've been working on. It helps out with daily tasks using Google's Gemini AI and has a cool audio visualizer that reacts when it speaks. I tried to make it look nice with a clean, frameless window that sits on your desktop.
 
-## Features
+## What it does
 
-- **Advanced AI**: Powered by Google's Gemini 2.5 Flash model for intelligent responses.
-- **Neural Voice**: Uses Microsoft Edge Neural TTS (Siri/Alexa quality) for natural speech.
-- **Visualizer**: Real-time circular audio spectrum visualizer with dynamic color gradients (Idle, Listening, Thinking, Speaking modes).
-- **Modern UI**: Custom frameless window with a clean, dark-themed interface.
-- **Voice Control**: Wake-word free continuous listening loop.
-- **Commands**: 
-  - "Play [song]" (YouTube)
-  - "Open [site]" (Google, YouTube, GitHub, etc.)
+- **Smart Conversation**: It uses Gemini so you can chat with it about almost anything.
+- **Natural Voice**: I hooked up Microsoft Edge's TTS so it sounds pretty realistic, not robotic.
+- **Audio Visualizer**: The circle in the middle dances to the music or voice. I spent some time tuning the physics so it feels satisfying to watch! 
+- **Modern Look**: It's just a simple dark window without the usual borders.
+- **Helpful Commands**:
+  - "Play [song]" (It opens YouTube for you)
+  - "Open [site]" (Like Google or GitHub)
   - "What time is it"
-  - General conversation
+  - Or just say "Hello" and chat!
 
-## Project Structure
+## How it's built
 
-The project is organized into modular components for maintainability:
+I tried to keep the code organized so it's easy to understand:
 
 ```text
 Nero/
-├── config/           # Configuration
-│   └── settings.py   # Global settings (API Keys, Colors, Dimensions)
-├── core/             # Core Application
-│   └── app.py        # Main Application Logic & Event Loop
-├── modules/          # AI & Logic Modules
-│   ├── brain.py      # Gemini AI Integration
-│   ├── ears.py       # Speech Recognition (STT)
-│   └── voice.py      # Neural Text-to-Speech (TTS)
-├── ui/               # User Interface
-│   ├── components.py # UI Elements (Title Bar, Chat Panel)
-│   └── visualizer.py # Circular Spectrum Visualizer class
-├── utils/            # Utilities
-│   └── setup.py      # Environment & Logging setup
-├── main.py           # Application Entry Point
-└── requirements.txt  # Python Dependencies
+├── config/           # Where all the settings live (colors, keys)
+├── core/             # The main loop that runs everything
+├── modules/          # The brains (AI) and voice (TTS) logic
+├── ui/               # The visuals (Drawing the circle and window)
+├── utils/            # Boring setup stuff
+└── main.py           # Start here!
 ```
 
-## Installation
+## How to run it
 
-1. Install Python 3.10+
-2. Install dependencies:
+If you want to try it out:
+
+1. You'll need Python 3.10 or newer.
+2. Install the requirements:
    ```bash
    pip install -r requirements.txt
    ```
-   *Note: You may need to install `pyaudio` separately if `SpeechRecognition` fails (use `pipwin install pyaudio` on Windows).*
-
-## Usage
-
-Run the application using the main entry point:
-
-```bash
-python main.py
-```
-
-## Configuration
-
-1. Create a `.env` file in the root directory:
+3. Get a free API key from Google AI Studio and put it in a `.env` file:
    ```env
-   GEMINI_API_KEY=your_api_key_here
+   GEMINI_API_KEY=your_key_here
+   ```
+4. Run it:
+   ```bash
+   python main.py
    ```
 
-2. Edit `config/settings.py` to change:
-   - `VOICE_NAME`: Pick from 'guy', 'jenny', 'aria', 'davis', 'tony', 'jane'.
-   - `VOICE_RATE` / `PITCH`: Adjust speech speed and pitch.
-   - `SYSTEM_PROMPT`: The personality of the AI.
-   - `WIDTH` / `HEIGHT`: Window dimensions.
-   - `COLORS`: UI color scheme.
+Feel free to break it or make it better! Controls are simple:
+- Drag the title bar to move it around.
+- Click the speech bubble to hide the chat.
+- ESC to quit if needed.
 
-## Controls
-
-- **Left Click + Drag** on Title Bar to move the window.
-- **Minimize (-) / Close (x)** buttons in the custom title bar.
-- **ESC** to quit.
+Enjoy!
