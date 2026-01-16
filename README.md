@@ -1,6 +1,6 @@
 # Nero AI
 
-Hi there! This is Nero, a personal desktop assistant I've been working on. It helps out with daily tasks using Google's Gemini AI and has a cool audio visualizer that reacts when it speaks. I tried to make it look nice with a clean, frameless window that sits on your desktop.
+A frameless desktop AI assistant featuring a reactive audio spectrum visualizer, powered by Google Gemini."
 
 ## What it does
 
