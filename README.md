@@ -8,6 +8,13 @@ A frameless desktop AI assistant featuring a reactive audio spectrum visualizer,
 - **Natural Voice**: I hooked up Microsoft Edge's TTS so it sounds pretty realistic, not robotic.
 - **Audio Visualizer**: The circle in the middle dances to the music or voice. I spent some time tuning the physics so it feels satisfying to watch! 
 - **Modern Look**: It's just a simple dark window without the usual borders.
+- **System Control (New!)**: Nero can now control your PC like a real assistant:
+  - **Volume**: "Set volume to 50%", "Mute audio"
+  - **Apps**: "Open Spotify", "Launch Calculator", "Close Notepad"
+  - **Screen**: "Set brightness to 80%"
+  - **Media**: "Play/Pause", "Next track"
+  - **Health**: "Check CPU usage"
+
 - **Helpful Commands**:
   - "Play [song]" (It opens YouTube for you)
   - "Open [site]" (Like Google or GitHub)
@@ -22,7 +29,7 @@ I tried to keep the code organized so it's easy to understand:
 Nero/
 ├── config/           # Where all the settings live (colors, keys)
 ├── core/             # The main loop that runs everything
-├── modules/          # The brains (AI) and voice (TTS) logic
+├── modules/          # The brains (AI), voice (TTS), and system control
 ├── ui/               # The visuals (Drawing the circle and window)
 ├── utils/            # Boring setup stuff
 └── main.py           # Start here!

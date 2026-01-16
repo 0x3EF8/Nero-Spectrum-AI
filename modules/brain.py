@@ -1,47 +1,54 @@
-from google import genai
+import google.generativeai as genai
 from config.settings import Config
+from modules.system import SystemController
 
 class Brain:
-    def __init__(self):
-        try:
-            self.client = genai.Client(api_key=Config.GEMINI_KEY)
-            self.ready = True
-            self.history = []  # keeping track of what we said
-        except Exception as e:
-            print(f"Brain init error: {e}")
-            self.ready = False
+    """
+    The intelligence layer. Connects to Gemini and manages system tools.
+    """
     
-    def think(self, prompt, visualizer=None):
+    def __init__(self):
+        # Fire up the system controller
+        self.sys = SystemController()
+        
+        # Configure Gemini
+        genai.configure(api_key=Config.GEMINI_KEY)
+        
+        # Define the tools we want to give the AI access to
+        self.tools = [
+            self.sys.set_volume,
+            self.sys.adjust_volume,
+            self.sys.mute_volume,
+            self.sys.unmute_volume,
+            self.sys.set_brightness,
+            self.sys.media_play_pause,
+            self.sys.media_next,
+            self.sys.media_prev,
+            self.sys.get_system_health,
+            self.sys.open_app,
+            self.sys.close_app
+        ]
+        
+        self.model = genai.GenerativeModel(
+            model_name=Config.GEMINI_MODEL,
+            system_instruction=Config.SYSTEM_PROMPT,
+            tools=self.tools
+        )
+        
+        # Keep chat history for context
+        self.chat_session = self.model.start_chat(enable_automatic_function_calling=True)
+
+    def think(self, user_text, visualizer=None):
+        """
+        Processes user input, calls tools if needed, and returns a text response.
+        """
         if visualizer:
-            visualizer.set_mode("thinking")
-        if not self.ready:
-            return "My AI systems are offline."
+            visualizer.mode = "thinking"
+            
         try:
-            # remember what the user said
-            self.history.append(f"User: {prompt}")
-            
-            # keep the context short so we don't blow up the context window/costs
-            recent_history = self.history[-6:] if len(self.history) > 6 else self.history
-            context = "\n".join(recent_history)
-            full_prompt = f"{Config.SYSTEM_PROMPT}\n\n{context}\nNero:"
-            
-            response = self.client.models.generate_content(
-                model=Config.GEMINI_MODEL,
-                contents=full_prompt
-            )
-            
-            result = response.text.strip()
-            self.history.append(f"Nero: {result}")
-            return result
+            # Send message to Gemini
+            response = self.chat_session.send_message(user_text)
+            return response.text
         except Exception as e:
-            print(f"Brain think error: {e}")
-            # simple fallback if the main request fails
-            try:
-                response = self.client.models.generate_content(
-                    model=Config.GEMINI_MODEL,
-                    contents=f"You are Nero, an AI assistant. Respond briefly to: {prompt}"
-                )
-                return response.text.strip()
-            except Exception as e2:
-                print(f"Brain fallback error: {e2}")
-                return f"I heard you say: {prompt}. My AI connection is having issues."
+            print(f"Brain Error: {e}")
+            return "I'm having trouble connecting to my neural network, Sir."

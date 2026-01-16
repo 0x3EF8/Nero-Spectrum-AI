@@ -1,7 +1,12 @@
 pygame
 SpeechRecognition
 pywhatkit
-google-genai
+google-generativeai
 edge-tts
 pywin32
 python-dotenv
+pycaw
+comtypes
+screen-brightness-control
+psutil
+AppOpener
