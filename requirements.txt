@@ -1,0 +1,7 @@
+pygame
+SpeechRecognition
+pywhatkit
+google-genai
+edge-tts
+pywin32
+python-dotenv
